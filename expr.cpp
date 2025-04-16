@@ -21,7 +21,7 @@ void expr::create(int m)
 {
     //Create an m-clause formula of all zeros
     num_clauses = m;
-    data = new int[3 * m];
+    data = new int16_t[3 * m];
     for (int i = 0; i < 3*m; i++) { data[i] = 0; }
 }
 
@@ -53,16 +53,42 @@ void expr::set_clause(int a, int b, int c, int n)
     }
 }
 
+bool expr::satisfies(bool *assignment)
+{
+    bool output = true;
+    for (int i = 0; i < num_clauses; i++) {
+        bool x1 = assignment[int(std::abs(data[3*i])) - 1] ^ (data[3*i] < 0);
+        bool x2 = assignment[int(std::abs(data[3*i+1])) - 1] ^ (data[3*i + 1] < 0);
+        bool x3 = assignment[int(std::abs(data[3*i+2])) - 1] ^ (data[3*i + 2] < 0);
+        //  assignment  sign    result
+        //      0       0       0
+        //      0       1       1
+        //      1       0       1
+        //      1       1       0
+        if (!x1 && !x2 && !x3) {
+            output = false;
+            break;
+        }
+    }
+    return output;
+}
+
+bool expr::is_satisfiable()
+{
+
+    return false;
+}
+
 void expr::add_clause(int a, int b, int c)
 {
-    int* new_data = new int[num_clauses * 3 + 3];
+    int16_t* new_data = new int16_t[num_clauses * 3 + 3];
     for (int i = 0; i < num_clauses * 3; i++) {
         new_data[i] = data[i];
     }
     
-    new_data[num_clauses] = a;
-    new_data[num_clauses + 1] = b;
-    new_data[num_clauses + 2] = c;
+    new_data[num_clauses*3] = a;
+    new_data[num_clauses*3 + 1] = b;
+    new_data[num_clauses*3 + 2] = c;
 
     if (data != nullptr) { delete[] data; }
     data = new_data;

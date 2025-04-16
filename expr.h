@@ -1,5 +1,6 @@
 #ifndef EXPR_H
 #define EXPR_H
+#include <cstdint>
 
 class expr{
     public:
@@ -14,6 +15,9 @@ class expr{
     void print();
     void set_clause(int, int, int, int);
 
+    //calulcation methods
+    bool satisfies(bool* assignment);
+    bool is_satisfiable();
 
     private:
     //methods
@@ -24,7 +28,7 @@ class expr{
     
     //data
     int num_clauses;
-    int* data;
+    int16_t* data;
 };
 
 

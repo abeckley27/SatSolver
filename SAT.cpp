@@ -25,14 +25,17 @@ int main(int argc, char* argv[]) {
     //testing expr class stuff
     expr f;
     f.add_clause(1, 2, 3);
+    f.add_clause(2, -3, 4);
+    f.add_clause(-1, -2, 4);
     f.print();
 
-    const int N = 10;
+    bool test[4] = {0, 1, 0, 0};
+    std::cout << f.satisfies(test) << std::endl;
 
-    expr** formula_array = make_random_formulas(4, 8, N);
+    const int N = 10;
+    expr** formula_array = make_random_formulas(4, 5, N);
     formula_array[0]->print();
     formula_array[1]->print();
-    formula_array[2]->print();
 
     for (int i = 0; i < N; i++) {
         delete formula_array[i];
