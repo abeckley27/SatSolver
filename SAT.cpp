@@ -11,7 +11,7 @@ expr** make_random_formulas(int n_vars, int n_clauses, int n_formulas) {
 
     expr** output = new expr*[n_formulas];
     for (int i = 0; i < n_formulas; i++) {
-        output[i] = new expr(n_clauses);
+        output[i] = new expr(n_clauses, n_vars);
         for (int j = 0; j < n_clauses; j++) {
             output[i]->set_clause((sign(mt64)*2 - 1) * rng(mt64), (sign(mt64)*2 - 1) * rng(mt64), (sign(mt64)*2 - 1) * rng(mt64), j);
         }

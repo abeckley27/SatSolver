@@ -6,8 +6,7 @@ class expr{
     public:
     //Constructors and destructor
     expr() { this->create(); }
-    expr(int* a, int length) { this->create(a, length); }
-    expr(int m) { this->create(m); }
+    expr(int m, int n) { this->create(m, n); }
     expr(const expr& e1) { this->copy(e1); }
     ~expr() { this->destroy(); }
 
@@ -23,13 +22,13 @@ class expr{
     private:
     //methods
     void create();
-    void create(int*, int);
-    void create(int);
+    void create(int, int);
     void copy(const expr&);
     void destroy();
     
     //data
     int num_clauses;
+    int num_vars;
     int16_t* data;
 };
 

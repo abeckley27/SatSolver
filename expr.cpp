@@ -6,21 +6,16 @@
 
 void expr::create() {
     num_clauses = 0;
+    num_vars = 0;
     data = nullptr;
 }
 
-void expr::create(int *a, int length)
-{
-    num_clauses = length;
-    data = nullptr;     //lol
-    //todo: implement this
-    //I'm thinking it'll be faster to allocate memory for formulas in one method, rather than re-sizing several times
-}
 
-void expr::create(int m)
+void expr::create(int m, int n)
 {
     //Create an m-clause formula of all zeros
     num_clauses = m;
+    num_vars = n;
     data = new int16_t[3 * m];
     for (int i = 0; i < 3*m; i++) { data[i] = 0; }
 }
@@ -28,6 +23,7 @@ void expr::create(int m)
 void expr::copy(const expr& e1)
 {
     num_clauses = e1.num_clauses;
+    num_vars = e1.num_vars;
     data = new int16_t[3 * e1.num_clauses];
     for (int i = 0; i < (3*e1.num_clauses); i++) { data[i] = e1.data[i]; } 
 }
@@ -36,6 +32,7 @@ void expr::destroy()
 {
     if (data != nullptr) { delete[] data; }
     num_clauses = 0;
+    num_vars = 0;
 }
 
 void expr::print() {
@@ -84,7 +81,7 @@ bool expr::satisfies(bool *assignment)
 
 bool expr::is_satisfiable()
 {
-
+    bool* assignment = new bool[num_vars];
     return false;
 }
 
