@@ -8,6 +8,7 @@ class expr{
     expr() { this->create(); }
     expr(int* a, int length) { this->create(a, length); }
     expr(int m) { this->create(m); }
+    expr(const expr& e1) { this->copy(e1); }
     ~expr() { this->destroy(); }
 
     //access and modifying methods
@@ -24,6 +25,7 @@ class expr{
     void create();
     void create(int*, int);
     void create(int);
+    void copy(const expr&);
     void destroy();
     
     //data

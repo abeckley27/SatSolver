@@ -25,6 +25,13 @@ void expr::create(int m)
     for (int i = 0; i < 3*m; i++) { data[i] = 0; }
 }
 
+void expr::copy(const expr& e1)
+{
+    num_clauses = e1.num_clauses;
+    data = new int16_t[3 * e1.num_clauses];
+    for (int i = 0; i < (3*e1.num_clauses); i++) { data[i] = e1.data[i]; } 
+}
+
 void expr::destroy()
 {
     if (data != nullptr) { delete[] data; }
@@ -56,15 +63,17 @@ void expr::set_clause(int a, int b, int c, int n)
 bool expr::satisfies(bool *assignment)
 {
     bool output = true;
+    bool x1, x2, x3;
     for (int i = 0; i < num_clauses; i++) {
-        bool x1 = assignment[int(std::abs(data[3*i])) - 1] ^ (data[3*i] < 0);
-        bool x2 = assignment[int(std::abs(data[3*i+1])) - 1] ^ (data[3*i + 1] < 0);
-        bool x3 = assignment[int(std::abs(data[3*i+2])) - 1] ^ (data[3*i + 2] < 0);
+        x1 = assignment[int(std::abs(data[3*i])) - 1] ^ (data[3*i] < 0);
+        x2 = assignment[int(std::abs(data[3*i+1])) - 1] ^ (data[3*i + 1] < 0);
+        x3 = assignment[int(std::abs(data[3*i+2])) - 1] ^ (data[3*i + 2] < 0);
         //  assignment  sign    result
         //      0       0       0
         //      0       1       1
         //      1       0       1
         //      1       1       0
+        
         if (!x1 && !x2 && !x3) {
             output = false;
             break;

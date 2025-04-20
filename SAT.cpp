@@ -33,9 +33,9 @@ int main(int argc, char* argv[]) {
     std::cout << f.satisfies(test) << std::endl;
 
     const int N = 10;
-    expr** formula_array = make_random_formulas(4, 5, N);
+    expr** formula_array = make_random_formulas(10, 25, N);
     formula_array[0]->print();
-    formula_array[1]->print();
+    //formula_array[1]->print();
 
     for (int i = 0; i < N; i++) {
         delete formula_array[i];
